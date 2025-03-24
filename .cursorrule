@@ -1,0 +1,12 @@
+.cursorrule
+
+# Rules
+- I am using windows 11
+- my IDE is cursor
+- always read @codebase
+- always read the @readme.md file. and if missing suggest.
+- Fill in readme.md as I progress in the project. 
+- After user provide a prompt, always ask questions for improvments in design and code etc and never proceed without it. 
+- Check the system date so you always know the current date and you stay relevant.
+- When write save please push all modified files to github using commands in my terminal.
+- http://localhost:3000

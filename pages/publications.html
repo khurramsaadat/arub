@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications - Neurofeedback Research</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="../index.html">
+                <i class="fas fa-home"></i>
+                <span>Neurofeedback Research</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
+            <li><a href="mental-health.html">Mental Health</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+        <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <main>
+        <section class="publications-header">
+            <h1>Research Publications</h1>
+            <p>Explore our comprehensive collection of neurofeedback research publications</p>
+            
+            <div class="search-filters">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search publications...">
+                    <i class="fas fa-search"></i>
+                </div>
+                
+                <div class="filters">
+                    <select id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="featured">Featured Research</option>
+                        <option value="overview">Overview & Mechanisms</option>
+                        <option value="clinical">Clinical Applications</option>
+                        <option value="books">Books & Chapters</option>
+                    </select>
+                    
+                    <select id="year-filter">
+                        <option value="all">All Years</option>
+                    </select>
+
+                    <select id="sort-select">
+                        <option value="year-desc">Newest First</option>
+                        <option value="year-asc">Oldest First</option>
+                        <option value="author">Author (A-Z)</option>
+                        <option value="title">Title (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="publications-container">
+            <div id="publications-grid" class="publications-grid">
+                <!-- Publications will be loaded here via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                    <li><a href="mental-health.html">Mental Health</a></li>
+                    <li><a href="performance.html">Performance</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Neurofeedback Research. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/publications.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html> 
