@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -16,16 +19,44 @@
                 <span>Neurofeedback Research</span>
             </a>
         </div>
-        <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="publications.html" class="active">Publications</a></li>
-            <li><a href="mental-health.html">Mental Health</a></li>
-            <li><a href="performance.html">Performance</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
-        <button class="mobile-menu">
-            <i class="fas fa-bars"></i>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span class="menu-icon"></span>
         </button>
+
+        <div class="mobile-menu-container">
+            <ul class="mobile-nav-links">
+                <li>
+                    <a href="../index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="publications.html" class="active">
+                        <i class="fas fa-book-open"></i>
+                        <span>Publications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mental-health.html">
+                        <i class="fas fa-brain"></i>
+                        <span>Mental Health</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="performance.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <main>
@@ -63,8 +94,10 @@
         </section>
 
         <section class="publications-container">
-            <div id="publications-grid" class="publications-grid">
-                <!-- Publications will be loaded here via JavaScript -->
+            <div class="container">
+                <div id="publications-grid">
+                    <!-- Publications will be rendered here by JavaScript -->
+                </div>
             </div>
         </section>
     </main>
@@ -91,7 +124,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2024 Neurofeedback Research. All rights reserved.</p>
+            <p>&copy; 2025 Neurofeedback Research. All rights reserved.</p>
         </div>
     </footer>
 

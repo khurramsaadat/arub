@@ -1,0 +1,31 @@
+/* Add these styles for the books section */
+#books-section {
+    margin-top: 2rem;
+    padding: 2rem 0;
+}
+
+#books-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.book-card {
+    /* Additional styling specific to book cards */
+    border-left: 4px solid var(--accent-color);
+}
+
+.book-card .publisher {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.book-card .chapter,
+.book-card .chapter-authors {
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+}
+
+.book-card .edition {
+    color: var(--text-secondary);
+    font-weight: 500;
+} 

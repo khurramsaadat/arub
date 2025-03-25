@@ -1,26 +1,55 @@
-A responsive website, that is about Neurofeedback publications, made with HTML CSS and JavaScript.
+# Neurofeedback Publications Website
+https://arub.netlify.app/
 
-Reference url: https://www.neurofeedbackadvocacyproject.com/research
+A responsive website about Neurofeedback publications, built with HTML, CSS, and JavaScript.
 
-navbar with home icon on the left and other standard button on the right
-hero section with grid style cards.
-footer section for quick links, social links and copyright. 
+## Features
 
-cards will have their title and
-author's name/names with year of publications
-publication title
-open pdf button (new window should open)
+### Navigation
+- Responsive navbar with home icon
+- Mobile-friendly menu
+- Section-specific navigation
 
-project-root/
-├── css/
-│   ├── style.css
-│   └── animations.css
-├── js/
-│   ├── main.js
-│   └── publications.js
-├── assets/
-│   └── images/
-├── pages/
-│   ├── about.html
-│   └── publications.html
-└── index.html
+### Publication Sections
+1. Featured Research
+   - Highlighted publications with abstracts
+   - Featured badges
+   - DOI links
+
+2. Overview & Mechanisms
+   - Research overview publications
+   - Comprehensive study collection
+
+3. Clinical Applications
+   - Multiple categories including:
+     - Addiction
+     - ADHD & Autism
+     - Depression
+     - And more...
+   - Category-specific grids
+
+4. Books & Book Chapters
+   - Book-specific formatting
+   - Chapter information
+   - Publisher details
+
+### Card Features
+- Title and author display
+- Publication year
+- Journal information
+- PDF viewing capability
+- Sharing functionality
+- Citation generation
+
+### Layout
+- Responsive grid system
+- Section-specific styling
+- Mobile-friendly design
+
+## source
+
+- https://www.neurofeedbackadvocacyproject.com/research
+
+- https://www.eeginfo.com/research/infra-low-frequency-neurofeedback-for-optimum-performance.jsp
+
+- https://www.newpathwaystherapy.com/blog/neurofeedback-training-infra-low-frequency#:~:text=A%20unique%20feature%20of%20ILF,on%20what%20they%20are%20feeling
