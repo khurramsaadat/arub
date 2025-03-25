@@ -1,11 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Main.js loaded');
     // Mobile menu toggle
-    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
     
-    mobileMenu?.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
+    console.log('Menu button:', mobileMenuBtn);
+    console.log('Nav links:', navLinks);
+
+    if (mobileMenuBtn && navLinks) {
+        // Remove any existing event listeners
+        const newMenuBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newMenuBtn, mobileMenuBtn);
+        
+        newMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            newMenuBtn.classList.toggle('active');
+        });
+
+        // Close menu when clicking links
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open');
+                newMenuBtn.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                body.classList.remove('menu-open');
+                newMenuBtn.classList.remove('active');
+            }
+        });
+    }
 
     // Load featured publications on home page
     const featuredGrid = document.querySelector('.publications-grid');
@@ -53,28 +88,4 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.remove();
         });
     }
-
-    // Add mobile menu functionality
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const body = document.body;
-
-    mobileMenuBtn?.addEventListener('click', () => {
-        body.classList.toggle('menu-open');
-    });
-
-    // Close menu when clicking on a link
-    document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            body.classList.remove('menu-open');
-        });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (body.classList.contains('menu-open') && 
-            !e.target.closest('.mobile-menu-container') && 
-            !e.target.closest('.mobile-menu-btn')) {
-            body.classList.remove('menu-open');
-        }
-    });
 }); 

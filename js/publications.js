@@ -46,8 +46,8 @@ const publications = {
             {
                 authors: "Corominas-Roso, M. et al.",
                 year: "2020",
-                title: "Benefits of EEG-Neurofeedback on the Modulation of Impulsivity in a Sample of Cocaine and Heroin Long-Term Abstinent Inmates: A Pilot Study",
-                journal: "International Journal of Offender Therapy and Comparative Criminology, 64(12), 1275-1298",
+                title: "Benefits of EEG-Neurofeedback on the Modulation of Impulsivity: A Pilot Study",
+                journal: "International Journal of Offender Therapy and Comparative Criminology",
                 pdfUrl: "https://www.neurofeedbackadvocacyproject.com/_files/ugd/1341df_10bbc4f379bc46d1b32f33e6c37fc7ca.pdf"
             },
             {
@@ -94,7 +94,7 @@ const publications = {
                 pdfUrl: "https://www.neurofeedbackadvocacyproject.com/_files/ugd/1341df_4167a7936fed4cb880a9fc2a71a992a9.pdf"
             }
         ],
-        "FIBROMYALGIA_MS_CONCUSSION": [
+        "FIBROMYALGIA_MS": [
             {
                 authors: "Dobrushina, O. R., Varako, N. A., Kovyazina, M. S. & Zinchenko, Y. P.",
                 year: "2016",
@@ -144,7 +144,7 @@ const publications = {
                 pdfUrl: "https://www.neurofeedbackadvocacyproject.com/_files/ugd/1341df_410d76faaa6244768e2744a472ee8499.pdf"
             }
         ],
-        "TRAUMATIC BRAIN INJURY (TBI)": [
+        "TRAUMATIC BRAIN INJURY": [
             {
                 authors: "Carlson, J. & Ross, G.W.",
                 year: "2021",
@@ -623,7 +623,7 @@ class PublicationManager {
             }
         }
 
-        // Handle other categories
+        // Handle overview publications
         if (category === 'all' || category === 'overview') {
             const filteredOverview = publications.overview.filter(filterPublication);
             if (filteredOverview.length > 0) {
@@ -633,6 +633,7 @@ class PublicationManager {
             }
         }
 
+        // Handle clinical publications
         if (category === 'all' || category === 'clinical') {
             Object.entries(publications.clinical).forEach(([subCategory, pubs]) => {
                 const filteredPubs = pubs.filter(filterPublication);
@@ -642,6 +643,19 @@ class PublicationManager {
                         .forEach(pub => this.renderPublicationCard(pub));
                 }
             });
+        }
+
+        // Handle books and chapters
+        if (category === 'all' || category === 'books') {
+            const filteredBooks = publications.books.filter(filterPublication);
+            if (filteredBooks.length > 0) {
+                this.renderCategoryHeader('Books & Chapters');
+                this.sortPublications(filteredBooks, sortBy)
+                    .forEach(book => {
+                        const bookCard = createBookCard(book);
+                        this.publicationsGrid.appendChild(bookCard);
+                    });
+            }
         }
     }
 
@@ -1113,4 +1127,18 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.remove('active');
         }
     });
+}); 
+
+// Update the category filter options in the HTML
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryFilter = document.getElementById('category-filter');
+    if (categoryFilter) {
+        categoryFilter.innerHTML = `
+            <option value="all">All Categories</option>
+            <option value="featured">Featured Research</option>
+            <option value="overview">Overview & Mechanisms</option>
+            <option value="clinical">Clinical Applications</option>
+            <option value="books">Books & Chapters</option>
+        `;
+    }
 }); 
