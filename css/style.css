@@ -175,6 +175,19 @@ body {
     text-align: center;
 }
 
+/* Typing effect styles */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    animation: blink 0.7s infinite;
+    color: var(--primary-blue);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 .hero h1,
 .publications-header h1 {
     color: var(--primary-blue);
@@ -431,14 +444,14 @@ footer {
     display: none;
 }
 
-/* Share Modal */
+/* Share Modal Styles */
 .share-modal {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -446,19 +459,48 @@ footer {
 }
 
 .share-modal-content {
-    background: var(--white);
+    background: white;
     padding: 2rem;
-    border-radius: 8px;
-    max-width: 400px;
+    border-radius: 12px;
+    max-width: 500px;
     width: 90%;
-    font-family: var(--font-primary);
+    position: relative;
+}
+
+.preview-card {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.preview-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.preview-text h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.preview-text p {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: #666;
 }
 
 .share-buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    margin: 1.5rem 0;
+    margin-top: 1.5rem;
 }
 
 .share-buttons a,
@@ -467,59 +509,110 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem;
-    text-decoration: none;
-    color: white;
+    padding: 0.75rem 1rem;
     border-radius: 8px;
-    font-size: 0.9rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
     transition: all 0.3s ease;
+    width: 100%;
     border: none;
     cursor: pointer;
-    font-family: var(--font-primary);
 }
 
-.share-buttons .twitter { background-color: #1DA1F2; }
-.share-buttons .linkedin { background-color: #0077B5; }
-.share-buttons .facebook { background-color: #4267B2; }
-.share-buttons .whatsapp { background-color: #25D366; }
-.share-buttons .telegram { background-color: #0088cc; }
-.share-buttons .email { background-color: #EA4335; }
-.share-buttons .copy-link { 
-    background-color: #6B7280;
+.twitter { background-color: #000000; }
+.twitter:hover { background-color: #333333; }
+
+.linkedin { background-color: #0077B5; }
+.linkedin:hover { background-color: #005e8f; }
+
+.facebook { background-color: #4267B2; }
+.facebook:hover { background-color: #34518d; }
+
+.whatsapp { background-color: #25D366; }
+.whatsapp:hover { background-color: #1ea952; }
+
+.telegram { background-color: #0088cc; }
+.telegram:hover { background-color: #006da3; }
+
+.email { background-color: #EA4335; }
+.email:hover { background-color: #d33426; }
+
+.copy-link { 
+    background-color: #6c757d;
     color: white;
 }
+.copy-link:hover { background-color: #5a6268; }
+
+.close-modal {
+    background-color: #dc3545;
+    color: white;
+    margin-top: 1rem;
+}
+.close-modal:hover { background-color: #c82333; }
 
 .share-buttons a:hover,
 .share-buttons button:hover {
+    opacity: 0.9;
     transform: translateY(-2px);
-    filter: brightness(110%);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.share-buttons .copy-link.copied {
-    background-color: #059669;
+.copy-link.copied {
+    background: #4caf50;
 }
 
-.share-buttons .copy-link.error {
-    background-color: #DC2626;
+.copy-link.error {
+    background: #f44336;
 }
 
-/* Responsive adjustments */
 @media (max-width: 480px) {
     .share-buttons {
         grid-template-columns: 1fr;
     }
+    
+    .copy-link {
+        grid-column: span 1;
+    }
+    
+    .preview-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .preview-image {
+        width: 100%;
+        height: 120px;
+        margin-bottom: 1rem;
+    }
 }
 
-/* Animation for copy feedback */
-@keyframes copyFeedback {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+/* Share button in cards */
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--light-blue);
+    color: var(--primary-blue);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.copy-link i {
-    animation: copyFeedback 0.3s ease-in-out;
+.share-btn:hover {
+    background: var(--light-pink);
+    transform: translateY(-2px);
+}
+
+.share-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.share-btn i {
+    font-size: 1rem;
 }
 
 /* Publications Page Specific Styles */
@@ -1570,41 +1663,43 @@ pre, code {
     background: var(--light-blue);
 }
 
-/* Share Modal Styles */
-.share-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+/* About page share buttons */
+.about-card .card-actions {
+    margin-top: 1.5rem;
     display: flex;
+    justify-content: flex-end;
+}
+
+.about-card .share-btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.share-modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 90%;
-}
-
-.close-modal {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
     border: none;
-    background: var(--light-blue);
-    color: var(--primary-blue);
-    border-radius: 4px;
+    border-radius: 6px;
+    background: #f5f5f5;
+    color: #333;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: 1rem;
+    transition: all 0.3s ease;
 }
 
-.close-modal:hover {
-    background: var(--primary-blue);
-    color: white;
+.about-card .share-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.about-card .share-btn i {
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .about-card .card-actions {
+        justify-content: center;
+    }
+    
+    .about-card .share-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
