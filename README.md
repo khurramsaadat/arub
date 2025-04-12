@@ -28,7 +28,7 @@ A responsive website about Neurofeedback publications, built with HTML, CSS, and
      - And more...
    - Category-specific grids
 
-4. Books & Book Chapters
+4. Books & Chapters
    - Book-specific formatting
    - Chapter information
    - Publisher details
