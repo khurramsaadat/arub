@@ -455,52 +455,71 @@ footer {
 }
 
 .share-buttons {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: 1.5rem 0;
 }
 
-.share-buttons a {
-    flex: 1;
-    padding: 0.5rem;
-    text-align: center;
+.share-buttons a,
+.share-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
     text-decoration: none;
-    color: var(--white);
-    border-radius: 4px;
-    transition: opacity 0.3s ease;
-}
-
-.share-buttons a:hover {
-    opacity: 0.9;
-}
-
-.share-buttons a:nth-child(1) {
-    background-color: #1DA1F2;
-}
-
-.share-buttons a:nth-child(2) {
-    background-color: #0077B5;
-}
-
-.share-buttons a:nth-child(3) {
-    background-color: #4267B2;
-}
-
-.close-modal {
-    width: 100%;
-    padding: 0.5rem;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
     border: none;
-    background-color: var(--light-blue);
-    color: var(--primary-blue);
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     font-family: var(--font-primary);
-    font-weight: 500;
 }
 
-.close-modal:hover {
-    background-color: var(--light-pink);
+.share-buttons .twitter { background-color: #1DA1F2; }
+.share-buttons .linkedin { background-color: #0077B5; }
+.share-buttons .facebook { background-color: #4267B2; }
+.share-buttons .whatsapp { background-color: #25D366; }
+.share-buttons .telegram { background-color: #0088cc; }
+.share-buttons .email { background-color: #EA4335; }
+.share-buttons .copy-link { 
+    background-color: #6B7280;
+    color: white;
+}
+
+.share-buttons a:hover,
+.share-buttons button:hover {
+    transform: translateY(-2px);
+    filter: brightness(110%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.share-buttons .copy-link.copied {
+    background-color: #059669;
+}
+
+.share-buttons .copy-link.error {
+    background-color: #DC2626;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .share-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation for copy feedback */
+@keyframes copyFeedback {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.copy-link i {
+    animation: copyFeedback 0.3s ease-in-out;
 }
 
 /* Publications Page Specific Styles */
@@ -1531,4 +1550,61 @@ h1, h2, h3 {
 /* Code blocks (if any) */
 pre, code {
     font-family: Consolas, Monaco, "Courier New", monospace;
+}
+
+/* Share Button Styles */
+.btn-share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--light-blue);
+    border-radius: 4px;
+    background: white;
+    color: var(--primary-blue);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-share:hover {
+    background: var(--light-blue);
+}
+
+/* Share Modal Styles */
+.share-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.share-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.close-modal {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    background: var(--light-blue);
+    color: var(--primary-blue);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.close-modal:hover {
+    background: var(--primary-blue);
+    color: white;
 }

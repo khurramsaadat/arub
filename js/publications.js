@@ -530,7 +530,116 @@ function createPublicationCard(publication) {
         showCitationModal(publication);
     });
 
+    // Add share button
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'btn-share';
+    shareBtn.innerHTML = '<i class="fas fa-share-alt"></i> Share';
+    shareBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        shareContent(publication);
+    });
+
+    // Add share functionality
+    function shareContent(publication) {
+        // Check if Web Share API is supported
+        if (navigator.share) {
+            navigator.share({
+                title: publication.title,
+                text: publication.description,
+                url: window.location.href
+            })
+            .then(() => console.log('Shared successfully'))
+            .catch((error) => console.log('Error sharing:', error));
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            const shareUrl = encodeURIComponent(window.location.href);
+            const shareTitle = encodeURIComponent(publication.title);
+            
+            // Create and show share modal
+            showShareModal(publication);
+        }
+    }
+
     return card;
+}
+
+// Add share modal functionality
+function showShareModal(publication) {
+    const shareUrl = encodeURIComponent(window.location.href);
+    const shareText = encodeURIComponent(`${publication.title} by ${publication.authors}`);
+    
+    const modal = document.createElement('div');
+    modal.className = 'share-modal';
+    modal.innerHTML = `
+        <div class="share-modal-content">
+            <h3>Share via</h3>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" 
+                   target="_blank" rel="noopener noreferrer" class="twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" 
+                   target="_blank" rel="noopener noreferrer" class="linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" 
+                   target="_blank" rel="noopener noreferrer" class="facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" 
+                   target="_blank" rel="noopener noreferrer" class="whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://telegram.me/share/url?url=${shareUrl}&text=${shareText}" 
+                   target="_blank" rel="noopener noreferrer" class="telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </a>
+                <a href="mailto:?subject=${encodeURIComponent(publication.title)}&body=${shareText}%20${shareUrl}" 
+                   class="email">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <button class="copy-link">
+                    <i class="fas fa-link"></i> Copy Link
+                </button>
+            </div>
+            <button class="close-modal">Close</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Handle copy link button
+    const copyBtn = modal.querySelector('.copy-link');
+    copyBtn.addEventListener('click', async () => {
+        try {
+            await navigator.clipboard.writeText(decodeURIComponent(shareUrl));
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyBtn.classList.add('copied');
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fas fa-link"></i> Copy Link';
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        } catch (err) {
+            copyBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+            copyBtn.classList.add('error');
+            setTimeout(() => {
+                copyBtn.innerHTML = '<i class="fas fa-link"></i> Copy Link';
+                copyBtn.classList.remove('error');
+            }, 2000);
+        }
+    });
+
+    // Close button handler
+    modal.querySelector('.close-modal').addEventListener('click', () => {
+        modal.remove();
+    });
+
+    // Close on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
 }
 
 // Enhanced PublicationManager class with sorting
@@ -681,7 +790,7 @@ class PublicationManager {
                     <button class="pdf-btn" data-url="${publication.pdfUrl}">
                         <i class="fas fa-file-pdf"></i> View PDF
                     </button>
-                    <button class="share-btn" data-title="${publication.title}">
+                    <button class="share-btn">
                         <i class="fas fa-share-alt"></i> Share
                     </button>
                     <button class="cite-btn">
@@ -707,7 +816,27 @@ class PublicationManager {
                 window.open(url, '_blank');
             }
         });
-        card.querySelector('.share-btn').addEventListener('click', () => this.handleShare(publication));
+        const shareBtn = card.querySelector('.share-btn');
+        shareBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (navigator.share) {
+                // Use Web Share API if available
+                navigator.share({
+                    title: publication.title,
+                    text: `${publication.title} by ${publication.authors}`,
+                    url: window.location.href
+                })
+                .then(() => console.log('Shared successfully'))
+                .catch((error) => {
+                    console.log('Error sharing:', error);
+                    // Fallback to modal if Web Share API fails
+                    this.showShareModal(publication);
+                });
+            } else {
+                // Fallback to modal for browsers without Web Share API
+                this.showShareModal(publication);
+            }
+        });
         card.querySelector('.cite-btn').addEventListener('click', () => this.showCitationModal(publication));
 
         this.publicationsGrid.appendChild(card);
@@ -947,6 +1076,84 @@ class PublicationManager {
         });
 
         // Handle close button
+        modal.querySelector('.close-modal').addEventListener('click', () => {
+            modal.remove();
+        });
+
+        // Close on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+
+    showShareModal(publication) {
+        const shareUrl = encodeURIComponent(window.location.href);
+        const shareText = encodeURIComponent(`${publication.title} by ${publication.authors}`);
+        
+        const modal = document.createElement('div');
+        modal.className = 'share-modal';
+        modal.innerHTML = `
+            <div class="share-modal-content">
+                <h3>Share via</h3>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" 
+                       target="_blank" rel="noopener noreferrer" class="twitter">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" 
+                       target="_blank" rel="noopener noreferrer" class="linkedin">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" 
+                       target="_blank" rel="noopener noreferrer" class="facebook">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}" 
+                       target="_blank" rel="noopener noreferrer" class="whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://telegram.me/share/url?url=${shareUrl}&text=${shareText}" 
+                       target="_blank" rel="noopener noreferrer" class="telegram">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="mailto:?subject=${encodeURIComponent(publication.title)}&body=${shareText}%20${shareUrl}" 
+                       class="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <button class="copy-link">
+                        <i class="fas fa-link"></i> Copy Link
+                    </button>
+                </div>
+                <button class="close-modal">Close</button>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Handle copy link button
+        const copyBtn = modal.querySelector('.copy-link');
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(decodeURIComponent(shareUrl));
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-link"></i> Copy Link';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                copyBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+                copyBtn.classList.add('error');
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-link"></i> Copy Link';
+                    copyBtn.classList.remove('error');
+                }, 2000);
+            }
+        });
+
+        // Close button handler
         modal.querySelector('.close-modal').addEventListener('click', () => {
             modal.remove();
         });

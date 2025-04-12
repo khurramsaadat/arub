@@ -88,4 +88,23 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.remove();
         });
     }
-}); 
+});
+
+// Add this function before the DOMContentLoaded event
+function handleShare(publication) {
+    const shareData = {
+        title: publication.title,
+        text: `${publication.title} by ${publication.authors}`,
+        url: window.location.href
+    };
+
+    // Create share links
+    const links = {
+        twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`
+    };
+
+    // Show share modal
+    showShareModal(links);
+} 
